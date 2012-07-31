@@ -49,7 +49,7 @@ class Builder {
      */
     public function writeClass() {
         $file = $this->_outputdir.$this->_classname.$this->_template->getFileExtension();
-        return file_put_contents($file, $this->buildClass());
+        return (!file_exists($file) || $this->_json !== null) ? file_put_contents($file, $this->buildClass()) : false;
     }
     
     /**
@@ -73,7 +73,7 @@ class Builder {
             return self::TYPE_ARRAY;
         }
         
-        if (is_object($value)) {
+        if (is_object($value) || $value === null) {
             return self::TYPE_OBJECT;
         }
 
@@ -87,18 +87,22 @@ class Builder {
     
     private function buildPropertyMethods() {
         $methods = '';
-        foreach ($this->_json as $key => $value) {
-            $vars = $this->getVars($key, $value);
-            $methods .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
+        if ($this->_json !== null) {
+            foreach ($this->_json as $key => $value) {
+                $vars = $this->getVars($key, $value);
+                $methods .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
+            }
         }
         return $methods;
     }
     
     private function buildProperties() {
         $properties = '';
-        foreach ($this->_json as $key => $value) {
-            $vars = $this->getVars($key, $value);
-            $properties .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
+        if ($this->_json !== null) {
+            foreach ($this->_json as $key => $value) {
+                $vars = $this->getVars($key, $value);
+                $properties .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
+            }
         }
         return $properties;
     }
