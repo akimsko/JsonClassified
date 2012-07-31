@@ -52,7 +52,7 @@ class Builder {
     public function buildClass() {
         $vars = array(
             '{properties}' => $this->buildProperties(),
-            '{mutators}' => $this->buildPropertyMethods()
+            '{methods}' => $this->buildPropertyMethods()
         );
         $all = str_replace(array_keys($vars), $vars, $this->_template->getClass());
         return str_replace('{classname}', $this->_classname, $all);

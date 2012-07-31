@@ -24,7 +24,7 @@ class JavaTemplate implements ITemplate {
     public function getClass() {
         $snippet = "public class {classname} {\n";
         $snippet .= "{properties}";
-        $snippet .= "{mutators}";
+        $snippet .= "{methods}";
         $snippet .= "}";
         
         return $snippet;
