@@ -1,4 +1,12 @@
 <?php
+/**
+ * This file is part of JsonClassified.
+ * @link https://github.com/akimsko/JsonClassified
+ *
+ * @copyright Copyright 2012 Bo Thinggaard
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ * @author    bo@unpossiblesystems.dk
+ */
 
 require_once __DIR__ . '/Builder.php';
 

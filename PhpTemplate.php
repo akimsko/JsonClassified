@@ -1,15 +1,16 @@
 <?php
-require_once __DIR__ . '/ITemplate.php';
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of PhpTemplate
+ * This file is part of JsonClassified.
+ * @link https://github.com/akimsko/JsonClassified
  *
- * @author akimsko
+ * @copyright Copyright 2012 Bo Thinggaard
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ */
+require_once __DIR__ . '/ITemplate.php';
+/**
+ * Template for PHP
+ *
+ * @author bo@unpossiblesystems.dk
  */
 class PhpTemplate implements ITemplate {
     private static $_types = array(

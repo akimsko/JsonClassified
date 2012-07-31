@@ -1,15 +1,16 @@
 <?php
-require_once __DIR__ . '/ITemplate.php';
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of JavaTemplate
+ * This file is part of JsonClassified.
+ * @link https://github.com/akimsko/JsonClassified
  *
- * @author both
+ * @copyright Copyright 2012 Bo Thinggaard
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
+ */
+require_once __DIR__ . '/ITemplate.php';
+/**
+ * Template for Java
+ *
+ * @author bo@unpossiblesystems.dk
  */
 class JavaTemplate implements ITemplate {
     private static $_types = array(

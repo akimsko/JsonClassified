@@ -1,13 +1,16 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * This file is part of JsonClassified.
+ * @link https://github.com/akimsko/JsonClassified
+ *
+ * @copyright Copyright 2012 Bo Thinggaard
+ * @license   http://www.apache.org/licenses/LICENSE-2.0
  */
 
 /**
+ * Template interface
  *
- * @author both
+ * @author bo@unpossiblesystems.dk
  */
 interface ITemplate {
     public function getPropertyMethods();
