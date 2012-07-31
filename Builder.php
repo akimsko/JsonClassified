@@ -29,6 +29,9 @@ class Builder {
     
     public function __construct($json, ITemplate $template, $classname = "MyClass", $outputdir = "output/") {
         $this->_json = (is_array($json) && array_key_exists(0, $json)) ? $json[0] : $json;
+        if (is_object($this->_json)) {
+            $this->_json = get_object_vars($this->_json);
+        }
         $this->_classname = $classname;
         $this->_outputdir = $outputdir;
         $this->_template = $template;
