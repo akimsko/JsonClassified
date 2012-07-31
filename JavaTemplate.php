@@ -31,12 +31,12 @@ class JavaTemplate implements ITemplate {
     }
     
     public function getPropertyMethods() {
-        $snippet = "\n\tpublic {type} get{name}() {\n";
-        $snippet .= "\t\treturn m{name};\n";
+        $snippet = "\n\tpublic {type} get{name.uc}() {\n";
+        $snippet .= "\t\treturn m{name.uc};\n";
         $snippet .= "\t}\n\n";
         
-        $snippet .= "\tpublic {classname} set{name}({type} {name}) {\n";
-        $snippet .= "\t\tm{name} = {name};\n";
+        $snippet .= "\tpublic {classname} set{name.uc}({type} {name.lc}) {\n";
+        $snippet .= "\t\tm{name.uc} = {name.lc};\n";
         $snippet .= "\t\treturn this;\n";
         $snippet .= "\t}\n";
         
@@ -44,7 +44,7 @@ class JavaTemplate implements ITemplate {
     }
     
     public function getProperty() {
-        return "\tprivate {type} m{name};\n";
+        return "\tprivate {type} m{name.uc};\n";
     }
     
     public function getType($typeIndex) {

@@ -86,10 +86,7 @@ class Builder {
     private function buildPropertyMethods() {
         $methods = '';
         foreach ($this->_json as $key => $value) {
-            $vars = array(
-                '{type}' => $this->_buildTypes[$key],
-                '{name}' => ucfirst($key),
-            );
+            $vars = $this->getVars($key, $value);
             $methods .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
         }
         return $methods;
@@ -98,16 +95,17 @@ class Builder {
     private function buildProperties() {
         $properties = '';
         foreach ($this->_json as $key => $value) {
-            $vars = array(
-                '{type}' => $this->buildPropertyType($key, $value),
-                '{name}' => ucfirst($key),
-            );
+            $vars = $this->getVars($key, $value);
             $properties .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
         }
         return $properties;
     }
     
     private function buildPropertyType($key, $value) {
+        if (array_key_exists($key, $this->_buildTypes)) {
+            return $this->_buildTypes[$key];
+        }
+        
         $type = $this->getType($value);
         
         if ($type == self::TYPE_OBJECT) {
@@ -126,8 +124,9 @@ class Builder {
     
     private function getVars($key, $value) {
         return array(
-            '{type}' => $this->buildProperty($key, $value),
-            '{name}' => ucfirst($key),
+            '{type}' => $this->buildPropertyType($key, $value),
+            '{name.lc}' => lcfirst($key),
+            '{name.uc}' => ucfirst($key),
         );
     }
 }
