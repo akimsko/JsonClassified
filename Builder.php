@@ -45,6 +45,8 @@ class Builder {
     }
     
     /**
+     * Writes the generated class to a file.
+     * 
      * @return bool Success
      */
     public function writeClass() {
@@ -53,20 +55,21 @@ class Builder {
     }
     
     /**
-     * @return string Class
+     * Generates the class from the template and json data.
+     * 
+     * @return string Generated class.
      */
     public function buildClass() {
-        $vars = array(
-            '{properties}' => $this->buildProperties(),
-            '{methods}' => $this->buildPropertyMethods()
-        );
-        $all = str_replace(array_keys($vars), $vars, $this->_template->getClass());
+        $content = $this->buildClassContent();
+        $all = str_replace(array_keys($content), $content, $this->_template->getClass());
         return str_replace('{classname}', $this->_classname, $all);
     }
     
     /**
-     * @param string $value JSON value
-     * @return int type
+     * Resolves the type of the JSON value.
+     * 
+     * @param string $value JSON value.
+     * @return int Type.
      */
     private function getType($value) {
         if (is_array($value)) {
@@ -85,28 +88,34 @@ class Builder {
         return ($value == "true" || $value == "false") ? self::TYPE_BOOL : self::TYPE_STRING;
     }
     
-    private function buildPropertyMethods() {
-        $methods = '';
+    /**
+     * Builds the class properties and property methods.
+     * 
+     * @return array Properties and methods indexed by template key.
+     */
+    private function buildClassContent() {
+        $content = array('{properties}' => '', '{methods}' => '');
         if ($this->_json !== null) {
             foreach ($this->_json as $key => $value) {
-                $vars = $this->getVars($key, $value);
-                $methods .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
+                $vars = array(
+                    '{type}' => $this->buildPropertyType($key, $value),
+                    '{name.lc}' => lcfirst($key),
+                    '{name.uc}' => ucfirst($key),
+                );
+                $content['{properties}'] .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
+                $content['{methods}'] .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
             }
         }
-        return $methods;
+        return $content;
     }
     
-    private function buildProperties() {
-        $properties = '';
-        if ($this->_json !== null) {
-            foreach ($this->_json as $key => $value) {
-                $vars = $this->getVars($key, $value);
-                $properties .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
-            }
-        }
-        return $properties;
-    }
-    
+    /**
+     * Translates the type, and handles nested arrays.
+     *
+     * @param mixed $key
+     * @param mixed $value
+     * @return string Translated type 
+     */
     private function buildPropertyType($key, $value) {
         if (array_key_exists($key, $this->_buildTypes)) {
             return $this->_buildTypes[$key];
@@ -126,14 +135,6 @@ class Builder {
         }
         
         return $this->_buildTypes[$key] = $this->_template->getType($type);
-    }
-    
-    private function getVars($key, $value) {
-        return array(
-            '{type}' => $this->buildPropertyType($key, $value),
-            '{name.lc}' => lcfirst($key),
-            '{name.uc}' => ucfirst($key),
-        );
     }
 }
 
