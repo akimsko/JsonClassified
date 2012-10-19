@@ -75,8 +75,12 @@ class Builder {
         if (is_array($value)) {
             return self::TYPE_ARRAY;
         }
+
+	if ($value === null) {
+            return self::TYPE_STRING;
+	}
         
-        if (is_object($value) || $value === null) {
+        if (is_object($value)) {
             return self::TYPE_OBJECT;
         }
 

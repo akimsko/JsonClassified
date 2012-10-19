@@ -15,9 +15,9 @@ require_once __DIR__ . '/ITemplate.php';
 class JavaTemplate implements ITemplate {
     private static $_types = array(
         Builder::TYPE_STRING => 'String',
-        Builder::TYPE_INT => 'Integer',
-        Builder::TYPE_FLOAT => 'Double',
-        Builder::TYPE_BOOL => 'Boolean',
+        Builder::TYPE_INT => 'int',
+        Builder::TYPE_FLOAT => 'double',
+        Builder::TYPE_BOOL => 'boolean',
         Builder::TYPE_ARRAY => 'List<{subtype}>',
         Builder::TYPE_OBJECT => '{subtype}'
     );
