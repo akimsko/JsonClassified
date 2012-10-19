@@ -18,6 +18,7 @@ interface ITemplate {
     public function getClass();
     public function getType($typeIndex);
     public function getFileExtension();
+	public function getExtras($properties, $class);
 }
 
 ?>

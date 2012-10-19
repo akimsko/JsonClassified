@@ -69,5 +69,9 @@ class PhpTemplate implements ITemplate {
     public function getFileExtension() {
         return ".php";
     }
+
+	public function getExtras($properties, $class) {
+		
+	}
 }
 ?>

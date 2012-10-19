@@ -76,9 +76,9 @@ class Builder {
             return self::TYPE_ARRAY;
         }
 
-	if ($value === null) {
+		if ($value === null) {
             return self::TYPE_STRING;
-	}
+		}
         
         if (is_object($value)) {
             return self::TYPE_OBJECT;
@@ -100,8 +100,9 @@ class Builder {
     private function buildClassContent() {
         $content = array('{properties}' => '', '{methods}' => '');
         if ($this->_json !== null) {
+			$properties = array();
             foreach ($this->_json as $key => $value) {
-                $vars = array(
+                $properties[] = $vars = array(
                     '{type}' => $this->buildPropertyType($key, $value),
                     '{name.lc}' => lcfirst($key),
                     '{name.uc}' => ucfirst($key),
@@ -109,6 +110,7 @@ class Builder {
                 $content['{properties}'] .= str_replace(array_keys($vars), $vars, $this->_template->getProperty());
                 $content['{methods}'] .= str_replace(array_keys($vars), $vars, $this->_template->getPropertyMethods());
             }
+			$content['{extras}'] = $this->_template->getExtras($properties, $this->_classname);
         }
         return $content;
     }

@@ -55,10 +55,6 @@ class JavaTemplate implements ITemplate {
     public function getFileExtension() {
         return ".java";
     }
-
-	public function getExtras($properties, $class) {
-		
-	}
 }
 
 ?>

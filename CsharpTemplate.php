@@ -45,6 +45,10 @@ class CsharpTemplate implements ITemplate {
     public function getFileExtension() {
         return ".cs";
     }
+
+	public function getExtras($properties, $class) {
+		
+	}
 }
 
 ?>
